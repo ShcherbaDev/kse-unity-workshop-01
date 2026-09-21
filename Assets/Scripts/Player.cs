@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
 	private Animator _animator;
 	private InputSystem_Actions _input;
 	private bool _canControl;
+
+	// Used to check if user is out of bounds (vertically)
+	private float _topEdgeY;
+	private float _bottomEdgeY;
 
 	[HideInInspector] public UnityEvent OnDeath = new UnityEvent();
 	[HideInInspector] public UnityEvent OnJumpPressed = new UnityEvent();
@@ -27,6 +31,11 @@ public class Player : MonoBehaviour
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_animator = GetComponent<Animator>();
 		_input = new InputSystem_Actions();
+	}
+
+	private void Start()
+	{
+		(_topEdgeY, _bottomEdgeY) = GetVerticalEdges();
 	}
 
 	private void OnEnable()
@@ -55,6 +64,11 @@ public class Player : MonoBehaviour
 		Die();
 	}
 
+	private void Update()
+	{
+		HandleOutOfBounds();
+	}
+
 	private void HandleJump(InputAction.CallbackContext ctx)
 	{
 		OnJumpPressed.Invoke();
@@ -64,6 +78,21 @@ public class Player : MonoBehaviour
 
 		_rigidbody.linearVelocity = Vector2.zero;
 		_rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+	}
+	
+	private void HandleOutOfBounds()
+	{
+		if (transform.position.y < _topEdgeY && transform.position.y > _bottomEdgeY)
+			return;
+		Die();
+	}
+
+	private (float, float) GetVerticalEdges()
+	{
+		Camera cam = Camera.main;
+		float cameraTopEdge = cam.ViewportToWorldPoint(Vector2.up).y;
+		float cameraBottomEdge = cam.ViewportToWorldPoint(Vector2.zero).y;
+		return (cameraTopEdge, cameraBottomEdge);
 	}
 
 	private void Die()
