@@ -6,7 +6,7 @@ public class GameOverMenu : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI _scoreText;
 
-	public void Show(int score)
+	public void SetScoreText(int score)
 	{
 		_scoreText.text = score.ToString();
 	}

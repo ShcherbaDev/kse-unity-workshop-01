@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 // Контроль екранів правильніше було б зробити через
@@ -9,7 +8,6 @@ public class UIManager : MonoBehaviour
 	[SerializeField] private MainMenu _mainMenu;
 	[SerializeField] private GameplayScreen _gameplayScreen;
 	[SerializeField] private GameOverMenu _gameOverMenu;
-	[SerializeField] private TextMeshProUGUI _scoreText;
 
 	private void Start()
 	{
@@ -34,6 +32,6 @@ public class UIManager : MonoBehaviour
 	{
 		_gameplayScreen.gameObject.SetActive(false);
 		_gameOverMenu.gameObject.SetActive(true);
-		_gameOverMenu.Show(score);
+		_gameOverMenu.SetScoreText(score);
 	}
 }

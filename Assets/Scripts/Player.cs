@@ -82,7 +82,8 @@ public class Player : MonoBehaviour
 	
 	private void HandleOutOfBounds()
 	{
-		if (transform.position.y < _topEdgeY && transform.position.y > _bottomEdgeY)
+		bool isInBounds = transform.position.y < _topEdgeY && transform.position.y > _bottomEdgeY; 
+		if (isInBounds)
 			return;
 		Die();
 	}
@@ -97,6 +98,9 @@ public class Player : MonoBehaviour
 
 	private void Die()
 	{
+		if (!_canControl)
+			return;
+
 		_canControl = false;
 		_rigidbody.bodyType = RigidbodyType2D.Static;
 		_animator.enabled = false;

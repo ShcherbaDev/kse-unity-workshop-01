@@ -849,7 +849,6 @@ MonoBehaviour:
   _mainMenu: {fileID: 483678618}
   _gameplayScreen: {fileID: 2043516095}
   _gameOverMenu: {fileID: 734121428}
-  _scoreText: {fileID: 402623646}
 --- !u!4 &696902627
 Transform:
   m_ObjectHideFlags: 0

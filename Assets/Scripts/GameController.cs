@@ -7,16 +7,18 @@ public class GameController : MonoBehaviour
 	[SerializeField] private ScoreManager _scoreManager;
 	[SerializeField] private UIManager _uiManager;
 
-	public void Init()
+	private void Awake()
 	{
 		_player.OnDeath.AddListener(GameLose);
 		_pipesGenerator.OnPipePassed.AddListener(_scoreManager.AddPoint);
 		_scoreManager.OnScoreChanged.AddListener(_uiManager.SetScore);
+	}
 
+	public void Init()
+	{
 		_scoreManager.Init();
 		_player.Init();
 		_pipesGenerator.Init(_player.transform.position.x);
-		
 		_uiManager.ShowGameplayScreen();
 	}
 
