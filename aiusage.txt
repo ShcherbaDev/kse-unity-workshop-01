@@ -9,6 +9,11 @@ Session 1 (18.09) - code cleanup & gameplay features:
 - Added gradually increasing pipe speed, capped at a configurable maximum
 - Added level restart on jump after death
 
+Session 2 (21.09) - parallax background
+- Created ParallaxLayer.cs - scrolling, tiled background layers with per-layer speed
+- Hooked the layers into the existing game over stop logic so the background freezes on death
+- Scene setup (sprites, sorting layers, speeds) was done manually in Unity
+
 Not done by AI:
 - All scene, prefab and asset work in the Unity Editor
-- Third-party assets (Pixel Bird, BoldPixels font)
+- Third-party assets (Pixel Bird, BoldPixels font, Pixel Skies)

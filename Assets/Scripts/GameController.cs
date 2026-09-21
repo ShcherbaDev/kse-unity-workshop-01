@@ -28,6 +28,8 @@ public class GameController : MonoBehaviour
 		_pipesGenerator.Stop();
 		foreach (Pipe pipe in FindObjectsByType<Pipe>(FindObjectsSortMode.None))
 			pipe.Stop();
+		foreach (ParallaxLayer layer in FindObjectsByType<ParallaxLayer>(FindObjectsSortMode.None))
+			layer.Stop();
 		Debug.Log($"Game Over. Score: {_scoreManager.Score}");
 	}
 
