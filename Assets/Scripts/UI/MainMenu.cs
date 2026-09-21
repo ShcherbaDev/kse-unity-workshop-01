@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 	public void GameStart()
 	{
 		_gameController.Init();
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
 
 	public void GameExit()

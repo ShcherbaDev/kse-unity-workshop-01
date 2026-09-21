@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 		_scoreManager.Init();
 		_player.Init();
 		_pipesGenerator.Init(_player.transform.position.x);
+		
+		_uiManager.ShowGameplayScreen();
 	}
 
 	private void GameLose()
