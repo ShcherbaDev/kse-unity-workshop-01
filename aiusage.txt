@@ -1,0 +1,14 @@
+AI usage in this project (Claude Code)
+
+Session 1 (18.09) - code cleanup & gameplay features:
+- Reviewed the existing Flappy Bird scripts for clean code and coupling between them - applied the agreed refactoring suggestions
+- Reworked Pipe.cs (despawning switched from a hardcoded X value to a Transform reference) and PipesGenerator.cs
+- Created ScoreManager.cs - scoring logic in its own script, tied to the player's position instead of a fixed point
+- Created UIManager.cs - updates the score TextMeshPro element in the scene
+- Created GameController.cs - game flow / game over handling
+- Added gradually increasing pipe speed, capped at a configurable maximum
+- Added level restart on jump after death
+
+Not done by AI:
+- All scene, prefab and asset work in the Unity Editor
+- Third-party assets (Pixel Bird, BoldPixels font)
