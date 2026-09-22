@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverMenu : MonoBehaviour
+public class GameOverMenu : AnimatedScreen
 {
 	[SerializeField] private TextMeshProUGUI _scoreText;
 
@@ -13,6 +13,6 @@ public class GameOverMenu : MonoBehaviour
 
 	public void Restart()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		Hide(() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex));
 	}
 }

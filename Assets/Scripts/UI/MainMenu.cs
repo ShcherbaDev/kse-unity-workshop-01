@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : AnimatedScreen
 {
 	[SerializeField] private GameController _gameController;
-	
+
 	public void GameStart()
 	{
-		_gameController.Init();
+		Hide(_gameController.Init);
 	}
 
 	public void GameExit()
 	{
-		Application.Quit();
+		Hide(Application.Quit);
 	}
 }

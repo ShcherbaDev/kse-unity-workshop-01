@@ -11,9 +11,9 @@ public class UIManager : MonoBehaviour
 
 	private void Start()
 	{
-		_mainMenu.gameObject.SetActive(true);
 		_gameplayScreen.gameObject.SetActive(false);
 		_gameOverMenu.gameObject.SetActive(false);
+		_mainMenu.Show();
 	}
 
 	public void SetScore(int score)
@@ -23,15 +23,14 @@ public class UIManager : MonoBehaviour
 
 	public void ShowGameplayScreen()
 	{
-		_gameplayScreen.gameObject.SetActive(true);
-		_mainMenu.gameObject.SetActive(false);
 		_gameOverMenu.gameObject.SetActive(false);
+		_gameplayScreen.gameObject.SetActive(true);
 	}
 
 	public void ShowGameOverMenu(int score)
 	{
 		_gameplayScreen.gameObject.SetActive(false);
-		_gameOverMenu.gameObject.SetActive(true);
 		_gameOverMenu.SetScoreText(score);
+		_gameOverMenu.Show();
 	}
 }

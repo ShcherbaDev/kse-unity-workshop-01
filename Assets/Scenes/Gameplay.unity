@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109fda66e30445189d5be451204fd998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  _panel: {fileID: 986193085}
   _gameController: {fileID: 113658003}
 --- !u!1 &519420028
 GameObject:
@@ -1054,6 +1055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03b612644d740ea98d92efa92839101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverMenu
+  _panel: {fileID: 1576498297}
   _scoreText: {fileID: 1119350915}
 --- !u!1 &858939596
 GameObject:
