@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
 	private float _bottomEdgeY;
 
 	[HideInInspector] public UnityEvent OnDeath = new UnityEvent();
-	[HideInInspector] public UnityEvent OnJumpPressed = new UnityEvent();
 
 	public void Init()
 	{
@@ -71,13 +70,13 @@ public class Player : MonoBehaviour
 
 	private void HandleJump(InputAction.CallbackContext ctx)
 	{
-		OnJumpPressed.Invoke();
-
 		if (!_canControl)
 			return;
 
 		_rigidbody.linearVelocity = Vector2.zero;
 		_rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+
+		SfxPlayer.PlayJump();
 	}
 	
 	private void HandleOutOfBounds()
@@ -104,6 +103,8 @@ public class Player : MonoBehaviour
 		_canControl = false;
 		_rigidbody.bodyType = RigidbodyType2D.Static;
 		_animator.enabled = false;
+
+		SfxPlayer.PlayHit();
 		OnDeath?.Invoke();
 	}
 }

@@ -1,0 +1,8 @@
+All sounds are from freesound.org,
+so each one is at https://freesound.org/s/<id>
+
+253168 - SFX UI Button Click by suntemple
+270304 - collect_point_00 by LittleRobotSoundFactory
+683101 - quick woosh by florianreichelt
+719560 - wind whirl, small air blow by dartekz_gamez
+726620 - FightPunch_VI Punch Full Impact by riley_garinger

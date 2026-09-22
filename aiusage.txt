@@ -20,7 +20,3 @@ Session 3 (21.09) - UI screens review:
 - Removed an unused score text field from UIManager and a duplicated "hide main menu" call from MainMenu
 - Moved event subscriptions in GameController from Init to Awake so they are not added twice
 - Renamed GameOverMenu.Show to SetScoreText so all screen activation stays in UIManager
-
-Not done by AI:
-- All scene, prefab and asset work in the Unity Editor
-- Third-party assets (Pixel Bird, BoldPixels font, Pixel Skies)

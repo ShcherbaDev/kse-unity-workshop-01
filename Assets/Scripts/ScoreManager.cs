@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
 	public void AddPoint()
 	{
 		Score++;
+		SfxPlayer.PlayScore();
 		OnScoreChanged.Invoke(Score);
 	}
 }

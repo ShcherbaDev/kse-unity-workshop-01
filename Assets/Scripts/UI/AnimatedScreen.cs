@@ -32,6 +32,8 @@ public class AnimatedScreen : MonoBehaviour
 
 	public void Hide(Action onComplete = null)
 	{
+		SfxPlayer.PlayWhoosh();
+
 		_panel.DOKill();
 		DOTween.Sequence().SetTarget(_panel)
 			.Join(_panel.DOAnchorPos(_homePosition - CanvasSize, Duration))
