@@ -22,7 +22,7 @@ public class Player : BaseMortalEntity
 
 	private void Start()
 	{
-		(_leftEdgeX, _rightEdgeX) = GetHorizontalEdges();
+		(_leftEdgeX, _rightEdgeX) = Utils.GetHorizontalEdges();
 	}
 
 	private void OnEnable()
@@ -35,14 +35,6 @@ public class Player : BaseMortalEntity
 	{
 		_input.Disable();
 		_input.Player.Fire.performed -= HandleFire;
-	}
-
-	private (float, float) GetHorizontalEdges()
-	{
-		Camera cam = Camera.main;
-		float cameraLeftEdge = cam.ViewportToWorldPoint(Vector2.zero).x;
-		float cameraRightEdge = cam.ViewportToWorldPoint(Vector2.one).x;
-		return (cameraLeftEdge, cameraRightEdge);
 	}
 
 	private void Update()

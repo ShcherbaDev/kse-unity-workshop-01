@@ -16,9 +16,9 @@ public abstract class BaseMortalEntity : MonoBehaviour
 
 	public void Damage()
 	{
+		_health--;
 		if (_health <= 0)
 			Die();
-		_health--;
 	}
 
 	protected virtual void Die()
