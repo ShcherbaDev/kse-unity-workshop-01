@@ -1,19 +1,11 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : BaseMortalEntity
 {
 	[Header("Movement")]
 	[SerializeField, Min(0f)] private float _movementSpeed = 1f;
-	
-	[Header("Fighting")]
-	[SerializeField, Min(0f)] private float _cooldownSeconds = 0.1f;
-
-	[Header("Projectile")]
-	[SerializeField] private Projectile _projectilePrefab;
-	[SerializeField] private GameObject _projectileSpawnPoint;
 
 	private Rigidbody2D _rigidbody;
 	private InputSystem_Actions _input;
@@ -21,8 +13,6 @@ public class Player : MonoBehaviour
 	private float _horizontalMovementDirection; // Value from -1 to 1. 0 - standing still
 	private float _leftEdgeX;
 	private float _rightEdgeX;
-
-	private bool _isCooldownPassed = true;
 
 	private void Awake()
 	{
@@ -38,13 +28,13 @@ public class Player : MonoBehaviour
 	private void OnEnable()
 	{
 		_input.Enable();
-		_input.Player.Fire.performed += Fire;
+		_input.Player.Fire.performed += HandleFire;
 	}
 
 	private void OnDisable()
 	{
 		_input.Disable();
-		_input.Player.Fire.performed -= Fire;
+		_input.Player.Fire.performed -= HandleFire;
 	}
 
 	private (float, float) GetHorizontalEdges()
@@ -77,19 +67,8 @@ public class Player : MonoBehaviour
 		_rigidbody.MovePosition(deltaPosition);
 	}
 
-	private IEnumerator UpdateCooldown()
+	private void HandleFire(InputAction.CallbackContext _)
 	{
-		_isCooldownPassed = false;
-		yield return new WaitForSeconds(_cooldownSeconds);
-		_isCooldownPassed = true;
-	}
-
-	private void Fire(InputAction.CallbackContext _)
-	{
-		if (!_isCooldownPassed)
-			return;
-
-		Instantiate(_projectilePrefab, _projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
-		StartCoroutine(UpdateCooldown());
+		Fire();
 	}
 }

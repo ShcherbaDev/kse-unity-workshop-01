@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5545342381501447821}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   _movementSpeed: 5
   _cooldownSeconds: 0.1
+  _enemiesTag: Enemy
   _projectilePrefab: {fileID: 1054732725836277173, guid: 4a2ea1e8ba085124fb891d769bb3ddba, type: 3}
   _projectileSpawnPoint: {fileID: 6291067298568488224}
 --- !u!1 &6291067298568488224
