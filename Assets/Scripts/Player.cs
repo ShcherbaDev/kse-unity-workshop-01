@@ -1,17 +1,28 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-
+	[Header("Movement")]
 	[SerializeField, Min(0f)] private float _movementSpeed = 1f;
+	
+	[Header("Fighting")]
+	[SerializeField, Min(0f)] private float _cooldownSeconds = 0.1f;
+
+	[Header("Projectile")]
+	[SerializeField] private Projectile _projectilePrefab;
+	[SerializeField] private GameObject _projectileSpawnPoint;
 
 	private Rigidbody2D _rigidbody;
 	private InputSystem_Actions _input;
+
 	private float _horizontalMovementDirection; // Value from -1 to 1. 0 - standing still
 	private float _leftEdgeX;
 	private float _rightEdgeX;
+
+	private bool _isCooldownPassed = true;
 
 	private void Awake()
 	{
@@ -22,7 +33,6 @@ public class Player : MonoBehaviour
 	private void Start()
 	{
 		(_leftEdgeX, _rightEdgeX) = GetHorizontalEdges();
-		Debug.Log(_leftEdgeX + " " + _rightEdgeX);
 	}
 
 	private void OnEnable()
@@ -67,8 +77,19 @@ public class Player : MonoBehaviour
 		_rigidbody.MovePosition(deltaPosition);
 	}
 
+	private IEnumerator UpdateCooldown()
+	{
+		_isCooldownPassed = false;
+		yield return new WaitForSeconds(_cooldownSeconds);
+		_isCooldownPassed = true;
+	}
+
 	private void Fire(InputAction.CallbackContext _)
 	{
-		Debug.Log("Fire");
+		if (!_isCooldownPassed)
+			return;
+
+		Instantiate(_projectilePrefab, _projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
+		StartCoroutine(UpdateCooldown());
 	}
 }
