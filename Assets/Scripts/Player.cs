@@ -14,10 +14,12 @@ public class Player : BaseMortalEntity
 	private float _leftEdgeX;
 	private float _rightEdgeX;
 
-	private void Awake()
+	protected override void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_input = new InputSystem_Actions();
+
+		base.Awake();
 	}
 
 	private void Start()

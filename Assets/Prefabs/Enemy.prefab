@@ -175,6 +175,10 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 1054732725836277173, guid: 4a2ea1e8ba085124fb891d769bb3ddba, type: 3}
   _projectileSpawnPoint: {fileID: 6139148040112250889}
   _enemiesTag: Player
+  _muzzleFlashPrefab: {fileID: 4815162342000103, guid: e5ef647cb7f14e838618bd5bd40f6be9, type: 3}
+  _shootSound: {fileID: 8300000, guid: 2931446e6db64a68bcb4ca3edbbdfa47, type: 3}
+  _hitFlashMaterial: {fileID: 2100000, guid: a0b104dc0a144c2f9d9f0fd30345e40f, type: 2}
+  _hitSound: {fileID: 8300000, guid: 287fffdb541243eaae7adb6630941171, type: 3}
   _points: 10
   _explosionPrefab: {fileID: 4815162342000003, guid: c4c94060434b44ada6d86020f38076bb, type: 3}
   _explosionSound: {fileID: 8300000, guid: 6cb9484b07834c5ba72f81a5fa51a942, type: 3}

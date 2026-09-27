@@ -18,7 +18,7 @@ public class Enemy : BaseMortalEntity
 
 		// The explosion prefab destroys itself when the particles are gone
 		Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-		AudioSource.PlayClipAtPoint(_explosionSound, Vector2.zero);
+		AudioSource.PlayClipAtPoint(_explosionSound, Camera.main.transform.position);
 		PlayDeathAnimation();
 	}
 
@@ -26,6 +26,7 @@ public class Enemy : BaseMortalEntity
 	private void PlayDeathAnimation()
 	{
 		GetComponent<Collider2D>().enabled = false;
+		transform.DOKill(); // A running hit punch would fight the shrink
 
 		DOTween.Sequence()
 			.Join(transform.DOScale(0f, _deathAnimationSeconds).SetEase(Ease.InBack))
