@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /**
@@ -28,6 +30,11 @@ public class EntitiesFormation : MonoBehaviour
 	[SerializeField, Min(0f)] private float _edgeMargin = 0.2f;
 	[SerializeField, Min(0f)] private float _stepDownDistance = 0.5f;
 
+	[Header("Shooting")]
+	[SerializeField, Min(0f)] private float _minFireInterval = 0.5f;
+	[SerializeField, Min(0f)] private float _maxFireInterval = 2f;
+
+	private BaseMortalEntity[,] _entities; // [column, row], destroyed entities become null
 	private float _entityHalfWidth;
 	private float _leftEdgeX;
 	private float _rightEdgeX;
@@ -46,6 +53,7 @@ public class EntitiesFormation : MonoBehaviour
 		// Center horizontally (in local space)
 		float originX = -step.x * (_columns - 1) / 2;
 
+		_entities = new BaseMortalEntity[_columns, _rows];
 		for (int col = 0; col < _columns; col++)
 		{
 			for (int row = 0; row < _rows; row++)
@@ -53,11 +61,53 @@ public class EntitiesFormation : MonoBehaviour
 				// Rows grow along the formation's local up, so the Z rotation sets the direction
 				Vector2 localOffset = new Vector2(originX + step.x * col, step.y * row);
 				Vector2 spawnPosition = transform.position + transform.rotation * localOffset;
-				SpawnSingleEntity(spawnPosition);
+				_entities[col, row] = SpawnSingleEntity(spawnPosition);
 			}
 		}
 
 		(_leftEdgeX, _rightEdgeX) = Utils.GetHorizontalEdges(_edgeMargin);
+		StartCoroutine(ShootingLoop());
+	}
+
+	// One shared timer, so the fire rate doesn't grow with the number of entities
+	private IEnumerator ShootingLoop()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(Random.Range(_minFireInterval, _maxFireInterval));
+
+			List<BaseMortalEntity> shooters = GetFrontEntities();
+			if (shooters.Count > 0)
+				shooters[Random.Range(0, shooters.Count)].Fire();
+		}
+	}
+
+	// AI usage:
+	// Only the lowest alive entity of each column can fire,
+	// so shots never pass through the formation's own front rows
+	private List<BaseMortalEntity> GetFrontEntities()
+	{
+		List<BaseMortalEntity> frontEntities = new List<BaseMortalEntity>();
+		for (int col = 0; col < _columns; col++)
+		{
+			BaseMortalEntity front = null;
+			for (int row = 0; row < _rows; row++)
+			{
+				BaseMortalEntity entity = _entities[col, row];
+				bool isAlive = entity;
+				if (!isAlive)
+					continue;
+
+				bool hasFront = front;
+				bool isLowerThanFront = hasFront && entity.transform.position.y < front.transform.position.y;
+				if (!hasFront || isLowerThanFront)
+					front = entity;
+			}
+
+			if (front)
+				frontEntities.Add(front);
+		}
+		return frontEntities;
 	}
 
 	private void Update()

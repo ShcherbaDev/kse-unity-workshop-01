@@ -26,7 +26,7 @@ public abstract class BaseMortalEntity : MonoBehaviour
 		Destroy(gameObject);
 	}
 
-	protected void Fire()
+	public void Fire()
 	{
 		if (!_isCooldownPassed)
 			return;
