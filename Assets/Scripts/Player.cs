@@ -23,6 +23,7 @@ public class Player : BaseMortalEntity
 	private void Start()
 	{
 		(_leftEdgeX, _rightEdgeX) = Utils.GetHorizontalEdges();
+		GameManager.Instance.SetLives(_health);
 	}
 
 	private void OnEnable()
@@ -59,6 +60,12 @@ public class Player : BaseMortalEntity
 		_rigidbody.MovePosition(deltaPosition);
 	}
 
+	public override void Damage()
+	{
+		base.Damage();
+		GameManager.Instance.SetLives(_health);
+	}
+
 	protected override void Die()
 	{
 		GameManager.Instance.Lose();
@@ -67,6 +74,10 @@ public class Player : BaseMortalEntity
 
 	private void HandleFire(InputAction.CallbackContext _)
 	{
+		// No shots on the Start/Result screens (e.g. clicking the Play button)
+		if (!GameManager.Instance.IsPlaying)
+			return;
+
 		Fire();
 	}
 }

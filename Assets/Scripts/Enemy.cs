@@ -8,7 +8,7 @@ public class Enemy : BaseMortalEntity
 
 	protected override void Die()
 	{
-		GameManager.Instance.AddScore(_points);
+		GameManager.Instance.OnEnemyKilled(_points);
 		base.Die();
 	}
 }

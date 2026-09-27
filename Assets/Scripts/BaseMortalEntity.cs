@@ -14,7 +14,7 @@ public abstract class BaseMortalEntity : MonoBehaviour
 
 	private bool _isCooldownPassed = true;
 
-	public void Damage()
+	public virtual void Damage()
 	{
 		// AI usage:
 		// Two hits in the same frame must not kill (and score) the entity twice
