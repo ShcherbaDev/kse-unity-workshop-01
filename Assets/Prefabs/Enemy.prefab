@@ -176,6 +176,9 @@ MonoBehaviour:
   _projectileSpawnPoint: {fileID: 6139148040112250889}
   _enemiesTag: Player
   _points: 10
+  _explosionPrefab: {fileID: 4815162342000003, guid: c4c94060434b44ada6d86020f38076bb, type: 3}
+  _explosionSound: {fileID: 8300000, guid: 6cb9484b07834c5ba72f81a5fa51a942, type: 3}
+  _deathAnimationSeconds: 0.2
 --- !u!1 &6139148040112250889
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,8 @@ public abstract class BaseMortalEntity : MonoBehaviour
 
 	public void Fire()
 	{
-		if (!_isCooldownPassed)
+		// Dead entities can still be around while their death animation plays
+		if (!_isCooldownPassed || _health <= 0)
 			return;
 
 		Projectile projectile = Instantiate(_projectilePrefab, _projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
