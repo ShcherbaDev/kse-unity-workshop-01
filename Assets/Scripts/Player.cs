@@ -59,6 +59,12 @@ public class Player : BaseMortalEntity
 		_rigidbody.MovePosition(deltaPosition);
 	}
 
+	protected override void Die()
+	{
+		GameManager.Instance.Lose();
+		base.Die();
+	}
+
 	private void HandleFire(InputAction.CallbackContext _)
 	{
 		Fire();

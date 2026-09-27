@@ -170,10 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a2ddf44dd642ee8f37dc7912eacb5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  _health: 3
   _cooldownSeconds: 0.1
-  _enemiesTag: Player
   _projectilePrefab: {fileID: 1054732725836277173, guid: 4a2ea1e8ba085124fb891d769bb3ddba, type: 3}
   _projectileSpawnPoint: {fileID: 6139148040112250889}
+  _enemiesTag: Player
+  _points: 10
 --- !u!1 &6139148040112250889
 GameObject:
   m_ObjectHideFlags: 0

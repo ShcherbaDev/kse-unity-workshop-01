@@ -6,7 +6,7 @@ public static class Utils
 	{
 		Camera cam = Camera.main;
 		float cameraLeftEdge = cam.ViewportToWorldPoint(Vector2.zero).x + margin;
-		float cameraRightEdge = cam.ViewportToWorldPoint(Vector2.one).x + margin;
+		float cameraRightEdge = cam.ViewportToWorldPoint(Vector2.one).x - margin;
 		return (cameraLeftEdge, cameraRightEdge);
 	}
 }

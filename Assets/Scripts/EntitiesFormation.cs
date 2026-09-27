@@ -112,8 +112,13 @@ public class EntitiesFormation : MonoBehaviour
 
 	private void Update()
 	{
+		// No entities left - player wins
 		if (transform.childCount == 0)
+		{
+			GameManager.Instance.Win();
+			enabled = false;
 			return;
+		}
 
 		if (IsHittingEdge())
 			TurnAroundAndStepDown();

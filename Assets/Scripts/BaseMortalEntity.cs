@@ -16,6 +16,11 @@ public abstract class BaseMortalEntity : MonoBehaviour
 
 	public void Damage()
 	{
+		// AI usage:
+		// Two hits in the same frame must not kill (and score) the entity twice
+		if (_health <= 0)
+			return;
+
 		_health--;
 		if (_health <= 0)
 			Die();
