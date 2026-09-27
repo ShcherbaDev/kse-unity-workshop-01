@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public abstract class BaseMortalEntity : MonoBehaviour
 {
@@ -29,10 +30,42 @@ public abstract class BaseMortalEntity : MonoBehaviour
 	private Material _defaultMaterial;
 	private Tween _hitFlashTween;
 
+	private ObjectPool<Projectile> _projectilePool;
+
 	protected virtual void Awake()
 	{
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_defaultMaterial = _spriteRenderer.sharedMaterial;
+
+		_projectilePool = new ObjectPool<Projectile>(
+			createFunc: CreatePooledProjectile,
+			actionOnRelease: projectile => projectile.gameObject.SetActive(false),
+			actionOnDestroy: projectile => {
+				if (projectile)
+					Destroy(projectile.gameObject);
+			}
+		);
+	}
+
+	// Idle projectiles die with their owner.
+	// Projectiles still in flight see the owner is gone and destroy themselves
+	private void OnDestroy()
+	{
+		_projectilePool.Clear();
+	}
+
+	public void ReleaseProjectile(Projectile projectile)
+	{
+		_projectilePool.Release(projectile);
+	}
+
+	// Activation happens in Projectile.Launch,
+	// after the projectile is moved to the spawn point
+	private Projectile CreatePooledProjectile()
+	{
+		Projectile projectile = Instantiate(_projectilePrefab, _projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
+		projectile.SetOwner(this);
+		return projectile;
 	}
 
 	public virtual void Damage()
@@ -82,7 +115,8 @@ public abstract class BaseMortalEntity : MonoBehaviour
 		if (!_isCooldownPassed || _health <= 0)
 			return;
 
-		Projectile projectile = Instantiate(_projectilePrefab, _projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
+		Projectile projectile = _projectilePool.Get();
+		projectile.Launch(_projectileSpawnPoint.transform.position, _projectileSpawnPoint.transform.rotation);
 		projectile.SetTagToKill(_enemiesTag);
 
 		// The flash destroys itself when the particles are gone
